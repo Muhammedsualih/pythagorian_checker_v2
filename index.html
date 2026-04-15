@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triangle Pro - SQA Assignment</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Login Section -->
+        <section id="login-section" class="card active">
+            <header>
+                <h1>Software Login</h1>
+                
+            </header>
+            
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="Any 6-letter name" autocomplete="off">
+                <span class="hint">Exactly 6 letters (A-Z)</span>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Must contain SWUSTCST">
+                <span class="hint">Must include "SWUSTCST"</span>
+            </div>
+            
+            <button id="loginBtn" class="primary-btn">Login</button>
+            <p id="login-msg" class="message"></p>
+        </section>
+
+        <!-- Analyzer Section -->
+        <section id="triangle-section" class="card hidden">
+            <header>
+                <h1>Triangle Analyzer</h1>
+                <p class="subtitle">Extended Requirements: Pythagorean & Types</p>
+            </header>
+            
+            <div class="input-grid">
+                <div class="form-group">
+                    <label for="side-a">Side A</label>
+                    <input type="number" id="side-a" placeholder="0">
+                    <span class="hint">Positive number</span>
+                </div>
+                <div class="form-group">
+                    <label for="side-b">Side B</label>
+                    <input type="number" id="side-b" placeholder="0">
+                    <span class="hint">Positive number</span>
+                </div>
+                <div class="form-group">
+                    <label for="side-c">Side C</label>
+                    <input type="number" id="side-c" placeholder="0">
+                    <span class="hint">Positive number</span>
+                </div>
+            </div>
+            
+            <button id="checkBtn" class="primary-btn">Analyze Properties</button>
+            
+            <div id="result-container" class="result-box hidden">
+                <p id="triangle-error" class="message error hidden"></p>
+                <div id="result-content">
+                    <div class="result-item">
+                        <span class="label">Triangular:</span>
+                        <span id="is-triangular" class="value"></span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">Pythagorean:</span>
+                        <span id="is-pythagorean" class="value"></span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">Classification:</span>
+                        <span id="triangle-type" class="value"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="logoutBtn" class="secondary-btn">Logout</button>
+        </section>
+    </div>
+
+    <script src="app.js" type="module"></script>
+</body>
+</html>
