@@ -1,21 +1,4 @@
 /**
- * SOLID Triangle App - SQA Assignment
- * 
- * Principles:
- * - SRP: Single Responsibility Principle
- * - OCP: Open/Closed Principle
- * - LSP: Liskov Substitution Principle
- * - ISP: Interface Segregation Principle
- * - DIP: Dependency Inversion Principle
- */
-
-/* 
-================================
-Interfaces (Conceptual)
-================================
-*/
-
-/**
  * @interface IValidator
  * validate(value: string): { isValid: boolean, message?: string }
  */
@@ -114,8 +97,6 @@ class Triangle {
 
     isPythagorean() {
         const [x, y, z] = this.sides;
-        // Use a small epsilon for floating point precision if needed, 
-        // but for integers it's exact.
         return Math.abs(x * x + y * y - z * z) < 0.000001;
     }
 }
@@ -135,9 +116,6 @@ class EquilateralClassifier {
 
 class IsoscelesClassifier {
     classify(t) {
-        // Only return Isosceles if it's NOT Equilateral to keep results clean,
-        // OR return both if that's the requirement. 
-        // Here we return it if at least two sides are equal.
         return ((t.a === t.b || t.b === t.c || t.a === t.c) && !(t.a === t.b && t.b === t.c)) ? "Isosceles" : null;
     }
 }
@@ -170,9 +148,7 @@ class TriangleService {
         if (!triangle.isTriangular()) {
             return {
                 isTriangular: false,
-                isPythagorean: triangle.isPythagorean(), // Can still be Pythagorean numbers even if not triangular? 
-                // Actually, Pythagorean numbers (a^2+b^2=c^2) ALWAYS satisfy a+b > c if a,b,c > 0.
-                // Proof: (a+b)^2 = a^2 + b^2 + 2ab = c^2 + 2ab > c^2 => a+b > c.
+                isPythagorean: triangle.isPythagorean(),
                 types: []
             };
         }
@@ -180,10 +156,6 @@ class TriangleService {
         const types = this.classifiers
             .map(c => c.classify(triangle))
             .filter(res => res !== null);
-
-        // Refinement: If Equilateral, we might want to hide Isosceles for clarity,
-        // but technically it is both. Let's keep both or filter.
-        // For this assignment, showing all applicable types is usually better.
 
         return {
             isTriangular: true,
@@ -211,7 +183,7 @@ class AppController {
     bindEvents() {
         // Login
         document.getElementById('loginBtn').addEventListener('click', () => this.handleLogin());
-        
+
         // Real-time validation feedback
         document.getElementById('username').addEventListener('input', (e) => this.validateInput(e.target, this.authService.userValidator));
         document.getElementById('password').addEventListener('input', (e) => this.validateInput(e.target, this.authService.passValidator));
@@ -251,7 +223,7 @@ class AppController {
         if (res.success) {
             msgEl.textContent = res.message;
             msgEl.className = "message success";
-            
+
             // Transition to analyzer
             setTimeout(() => {
                 document.getElementById('login-section').classList.replace('active', 'hidden');
@@ -278,7 +250,7 @@ class AppController {
             this.validateInput(sideA, this.sideValidator);
             this.validateInput(sideB, this.sideValidator);
             this.validateInput(sideC, this.sideValidator);
-            
+
             const container = document.getElementById('result-container');
             const errorEl = document.getElementById('triangle-error');
             const contentEl = document.getElementById('result-content');
@@ -286,7 +258,7 @@ class AppController {
             container.classList.remove('hidden');
             errorEl.classList.remove('hidden');
             contentEl.classList.add('hidden');
-            
+
             errorEl.textContent = "Please enter valid positive numbers for all sides.";
             return;
         }
@@ -322,14 +294,14 @@ class AppController {
     handleLogout() {
         document.getElementById('triangle-section').classList.replace('active', 'hidden');
         document.getElementById('login-section').classList.replace('hidden', 'active');
-        
+
         // Reset fields
         document.getElementById('username').value = "";
         document.getElementById('password').value = "";
         document.getElementById('username').classList.remove('valid', 'invalid');
         document.getElementById('password').classList.remove('valid', 'invalid');
         document.getElementById('login-msg').textContent = "";
-        
+
         // Reset triangle section
         document.getElementById('side-a').value = "";
         document.getElementById('side-b').value = "";
